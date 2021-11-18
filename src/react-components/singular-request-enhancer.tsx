@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 
 type childrenRenderParams = { isLoading: boolean; proxiedRequest: () => any };
 type Props = {
   request: () => Promise<any>;
-  children: (params: childrenRenderParams) => React.ReactChildren;
+  children: (params: childrenRenderParams) => ReactNode;
   onFailed?: () => void;
 };
 
@@ -26,7 +26,7 @@ export default class SingularRequestEnhancer extends Component<Props, State> {
     this.setState({
       isLoading: true,
     });
-    request()
+    return request()
       .catch(() => {
         if (onFailed) onFailed();
       })
@@ -36,7 +36,7 @@ export default class SingularRequestEnhancer extends Component<Props, State> {
         });
       });
   };
-  
+
   render() {
     const { isLoading } = this.state;
     const { children } = this.props;
