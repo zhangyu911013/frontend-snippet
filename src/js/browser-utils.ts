@@ -5,7 +5,7 @@ export function insertParam(url, {
   const enValue = encodeURIComponent(value);
 
   const search = url.split('?')[1] || '';
-  const kvp = search.split('&');
+  const kvp = search.split('&').filter((c) => c);
   let i = 0;
 
   for (; i < kvp.length; i++) {
